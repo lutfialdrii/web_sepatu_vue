@@ -82,7 +82,7 @@ export default {
       }
       axios.post('http://localhost/sepatu/login.php', dataLogin)
         .then(response => {
-          console.log(response)
+          console.log(response.data)
         }).catch(error => {
         console.log(error)
       }).finally({

@@ -25,6 +25,12 @@ const routes = [
     component: () =>
       import("../views/InsertBarangView"),
   },
+  {
+    path: "/detailbarang",
+    name: "detailbarang",
+    component: () =>
+      import("../views/DetailBarangView"),
+  },
 ];
 
 const router = createRouter({

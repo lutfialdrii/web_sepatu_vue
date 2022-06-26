@@ -3,7 +3,7 @@
     <br />
     <br />
 
-    <div class="panel panel-default">
+    <div class="panel panel-default shadow p-3">
       <div class="panel-heading">
         <div class="row">
           <div class="col-md-6">
@@ -58,6 +58,8 @@
       </div>
     </div>
 
+    <h3>List Item</h3>
+
     <!--    table-->
     <table class="table">
       <thead>
@@ -68,6 +70,7 @@
         <th scope="col">Kategori</th>
         <th scope="col">Stok Barang</th>
         <th scope="col">Harga Barang</th>
+        <th scope="col">Action</th>
       </tr>
       </thead>
       <tbody>
@@ -78,6 +81,7 @@
         <td>{{ Sepatu[index].kategori}}</td>
         <td>{{ Sepatu[index].stok}}</td>
         <td>{{ Sepatu[index].harga}}</td>
+        <td><button @click="deleteItem(Sepatu[index].id_barang)" class="btn-danger">Delete</button></td>
       </tr>
       </tbody>
     </table>
@@ -100,7 +104,9 @@ export default {
       harga:'',
       file:'',
       uploadedImage:'',
-      successMessage:''
+      successMessage:'',
+      id_barang:'',
+
     }
   },
   mounted() {
@@ -117,13 +123,6 @@ export default {
       formData.append('deskripsi', this.deskripsi);
       formData.append('stok', this.stok);
       formData.append('harga', this.harga);
-
-      console.log(this.nama_barang);
-      console.log(this.brand);
-      console.log(this.kategori);
-      console.log(this.deskripsi);
-      console.log(this.stok);
-      console.log(this.harga);
 
       axios.post('https://web-sepatu.000webhostapp.com/upload_image.php', formData, {
         header:{
@@ -152,6 +151,22 @@ export default {
           console.log(this.Sepatu)
         }).catch((error) => {
         console.log(error);
+      })
+    },
+    deleteItem(idBarang){
+      let formDataDelete = new FormData();
+      formDataDelete.append('id_barang', idBarang);
+      axios.post(`https://web-sepatu.000webhostapp.com/delete.php`,formDataDelete, {
+        header:{
+          'Content-Type' : 'multipart/form-data'
+        }
+      }).then(function(response) {
+        console.log(response.data);
+        if (response.data.message == 'Delete Data Berhasil'){
+          alert('Item berhasil dihapus');
+        } else {
+          alert('Item gagal dihapus');
+        }
       })
     }
   }
