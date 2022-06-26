@@ -14,7 +14,7 @@
                         <div class="input-group-text">
                           <i class="fa-solid fa-user"></i>
                         </div>
-                        <input type="text" class="form-control" placeholder="Username" v-model="modelLogin.username">
+                        <input type="text" class="form-control" placeholder="Username" v-model="dataUsername">
                       </div>
                     </div>
 
@@ -22,8 +22,9 @@
                       <label>Password <span class="text-danger">*</span></label>
                       <div class="input-group">
                         <div class="input-group-text">
-                          <i class="fa-solid fa-lock"></i>                        </div>
-                        <input type="password" class="form-control" placeholder="Password" v-model="modelLogin.password">
+                          <i class="fa-solid fa-lock"></i>
+                        </div>
+                        <input type="password" class="form-control" placeholder="Password" v-model="dataPassword">
                       </div>
                     </div>
 
@@ -37,7 +38,7 @@
                       <a href="#" class="float-end text-primary">Forgot Password</a>
                     </div>
                     <div class="col-12">
-                      <button type="submit" class="btn btn-primary px-4 float-end mt-4">Login</button>
+                      <button type="submit" class="btn btn-primary px-4 float-end mt-4"> Login </button>
                     </div>
                   </form>
                 </div>
@@ -60,6 +61,7 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios';
+import router from "@/router";
 export default {
 
   name: "HomeView",
@@ -68,25 +70,33 @@ export default {
   },
   data(){
     return {
-      modelLogin:{
-        username: '',
-        password: ''
-      }
+      dataUsername:"",
+      dataPassword:"",
+      isLoggin:false
     }
   },
   methods: {
     submitLogin(){
-      const dataLogin = {
-        username: this.modelLogin.username,
-        password: this.modelLogin.password
-      }
-      axios.post('http://localhost/sepatu/login.php', dataLogin)
-        .then(response => {
-          console.log(response.data)
-        }).catch(error => {
-        console.log(error)
-      }).finally({
+      let formLogin = new FormData();
+      formLogin.append('username', this.dataUsername);
+      formLogin.append('password', this.dataPassword);
+      axios.post('https://web-sepatu.000webhostapp.com/login.php', formLogin, {
+        header:{
+          'Content-Type' : 'multipart/form-data'
+        }
+      })
+        .then( function(response) {
+          //ambil data
+          if (response.data.status == "success") {
+            alert("Login Berhasil");
+            console.log(response.data.data[0]);
+            router.push('/dashboard')
+          } else {
+            alert("Username dan Password salah");
+          }
 
+        }).catch(error => {
+        console.log(error);
       })
     }
   }
