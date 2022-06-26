@@ -58,33 +58,35 @@
       </div>
     </div>
 
-    <h3>List Item</h3>
+    <div class="panel panel-default shadow p-5 mt-3">
+      <h3>List Item</h3>
 
-    <!--    table-->
-    <table class="table">
-      <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nama Barang</th>
-        <th scope="col">Brand</th>
-        <th scope="col">Kategori</th>
-        <th scope="col">Stok Barang</th>
-        <th scope="col">Harga Barang</th>
-        <th scope="col">Action</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr v-for="(item, index) in Sepatu" :key="index">
-        <th scope="row">{{index + 1}}</th>
-        <td>{{ Sepatu[index].nama_barang }}</td>
-        <td>{{ Sepatu[index].brand }}</td>
-        <td>{{ Sepatu[index].kategori}}</td>
-        <td>{{ Sepatu[index].stok}}</td>
-        <td>{{ Sepatu[index].harga}}</td>
-        <td><button @click="deleteItem(Sepatu[index].id_barang)" class="btn-danger">Delete</button></td>
-      </tr>
-      </tbody>
-    </table>
+      <!--    table-->
+      <table class="table">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Nama Barang</th>
+          <th scope="col">Brand</th>
+          <th scope="col">Kategori</th>
+          <th scope="col">Stok Barang</th>
+          <th scope="col">Harga Barang</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr v-for="(item, index) in Sepatu" :key="index">
+          <th scope="row">{{index + 1}}</th>
+          <td>{{ Sepatu[index].nama_barang }}</td>
+          <td>{{ Sepatu[index].brand }}</td>
+          <td>{{ Sepatu[index].kategori}}</td>
+          <td>{{ Sepatu[index].stok}}</td>
+          <td>{{ Sepatu[index].harga}}</td>
+          <td><button @click="deleteItem(Sepatu[index].id_barang)" class="btn-danger">Delete</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </template>
 <script>

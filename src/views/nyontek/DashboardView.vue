@@ -1,4 +1,5 @@
 <template>
+
   <div class="container">
     <div class="row align-item-center justify-content-center">
     <form class="col-xl-12 col-md-12 col-lg-12 col-sm-12 col-12 p-1 mt-4">
@@ -9,37 +10,16 @@
     <div v-for="(item, index) in Sepatu" :key="index" class="d-inline-block card shadow mx-5">
       <div class="card-body">
         <img class="item" :src="Sepatu[index].gambar" alt="gambarBarang">
-        <router-link class="card-title" to="/detailbarang"><p class="h5"> {{Sepatu[index].nama_barang}}</p> </router-link>
+        <h5 class="card-title">
+          {{Sepatu[index].nama_barang}}
+        </h5>
+        <router-link class="btn" to="/detailbarang">{{Sepatu[index].nama_barang}}</router-link>
         <p class="h6 card-text">Rp.{{Sepatu[index].harga}}</p>
         <p class="card-text">{{Sepatu[index].kategori}}</p>
-        <button @click="tambahItem">
+        <button>
           <i class="fa-solid fa-cart-shopping"></i>
         </button>
       </div>
-    </div>
-
-    <div class="panel panel-default shadow p-5 mt-3">
-      <h3>List Item</h3>
-
-      <!--    table-->
-      <table class="table">
-        <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Nama Barang</th>
-          <th scope="col">Harga Barang</th>
-          <th scope="col">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(item, index) in Sepatu" :key="index">
-          <th scope="row">{{index + 1}}</th>
-          <td>{{ Sepatu[index].nama_barang }}</td>
-          <td>{{ Sepatu[index].harga}}</td>
-          <td><button @click="deleteItem(Sepatu[index].id_barang)" class="btn-danger">Delete</button></td>
-        </tr>
-        </tbody>
-      </table>
     </div>
   </div>
 
@@ -51,8 +31,7 @@ import axios from "axios";
     data:function() {
       return {
         Sepatu: "",
-        search:"",
-        totalHarga:""
+        search:""
       }
     },
     mounted(){
@@ -67,9 +46,6 @@ import axios from "axios";
           }).catch((error) => {
           console.log(error);
         })
-      },
-      tambahItem(){
-
       }
     },
     computed: {

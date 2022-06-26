@@ -31,6 +31,12 @@ const routes = [
     component: () =>
       import("../views/DetailBarangView"),
   },
+  {
+    path: "/history",
+    name: "history",
+    component: () =>
+      import("../views/HistoryView"),
+  },
 ];
 
 const router = createRouter({
