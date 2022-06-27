@@ -1,8 +1,7 @@
 <template>
+  <Navbar/>
   <div class="container" id="uploadApp">
-    <br />
-    <br />
-
+  <h2 class="text-center my-3">Insert Barang</h2>
     <div class="panel panel-default shadow p-3">
       <div class="panel-heading">
         <div class="row">
@@ -91,10 +90,12 @@
 </template>
 <script>
 import axios from "axios";
+import Navbar from "@/components/Navbar";
 
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: "InsertBarang",
+  components: { Navbar },
   data(){
     return {
       Sepatu: '',

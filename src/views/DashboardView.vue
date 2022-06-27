@@ -1,4 +1,5 @@
 <template>
+  <Navbar/>
   <div class="container">
     <div class="row align-item-center justify-content-center">
     <form class="col-xl-12 col-md-12 col-lg-12 col-sm-12 col-12 p-1 mt-4">
@@ -6,48 +7,31 @@
     </form>
   </div>
     <!--  Catalog Item-->
-    <div v-for="(item, index) in Sepatu" :key="index" class="d-inline-block card shadow mx-5">
+    <div v-for="(item, index) in Sepatu" :key="index" class="d-inline-block card shadow m-5">
       <div class="card-body">
         <img class="item" :src="Sepatu[index].gambar" alt="gambarBarang">
-        <router-link class="card-title" to="/detailbarang"><p class="h5"> {{Sepatu[index].nama_barang}}</p> </router-link>
+        <router-link class="card-title" :to="{name : 'detailbarang', params: {idBarang: Sepatu[index].id_barang}}">
+          <p class="h5"> {{Sepatu[index].nama_barang}}</p>
+        </router-link>
         <p class="h6 card-text">Rp.{{Sepatu[index].harga}}</p>
         <p class="card-text">{{Sepatu[index].kategori}}</p>
-        <button @click="tambahItem">
+        <button @click="tambahTransaksi(Sepatu[index].id_barang)">
           <i class="fa-solid fa-cart-shopping"></i>
         </button>
       </div>
     </div>
 
     <div class="panel panel-default shadow p-5 mt-3">
-      <h3>List Item</h3>
-
-      <!--    table-->
-      <table class="table">
-        <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Nama Barang</th>
-          <th scope="col">Harga Barang</th>
-          <th scope="col">Action</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr v-for="(item, index) in Sepatu" :key="index">
-          <th scope="row">{{index + 1}}</th>
-          <td>{{ Sepatu[index].nama_barang }}</td>
-          <td>{{ Sepatu[index].harga}}</td>
-          <td><button @click="deleteItem(Sepatu[index].id_barang)" class="btn-danger">Delete</button></td>
-        </tr>
-        </tbody>
-      </table>
     </div>
   </div>
 
 </template>
 <script>
 import axios from "axios";
+import Navbar from "@/components/Navbar";
   export default {
     name: "DashboardView",
+    components: { Navbar },
     data:function() {
       return {
         Sepatu: "",
@@ -68,7 +52,23 @@ import axios from "axios";
           console.log(error);
         })
       },
-      tambahItem(){
+      tambahTransaksi(idBarang){
+        let formTransaksi = new FormData();
+        formTransaksi.append('id_barang', idBarang);
+
+        axios.post('https://web-sepatu.000webhostapp.com/inserttransaksi.php', formTransaksi, {
+          header:{
+            'Content-Type' : 'multipart/form-data'
+          }
+        }).then(function(response){
+          console.log(response.data);
+          if(response.data.message == "Data Berhasil diRecord") {
+            alert(response.data.message);
+          } else {
+            alert(response.data.message);
+          }
+        });
+
 
       }
     },
@@ -83,8 +83,8 @@ import axios from "axios";
 </script>
 <style scoped>
   .item{
-    height: 500px;
-    width: 500px;
+    height: 300px;
+    width: 300px;
     object-fit: cover;
   }
 </style>

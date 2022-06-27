@@ -72,7 +72,8 @@ export default {
     return {
       dataUsername:"",
       dataPassword:"",
-      isLoggin:false
+      isLoggin:false,
+      id_user:""
     }
   },
   methods: {
@@ -87,10 +88,12 @@ export default {
       })
         .then( function(response) {
           //ambil data
-          if (response.data.status == "success") {
+          if (response.data.status === "success") {
             alert("Login Berhasil");
             console.log(response.data.data[0]);
-            router.push('/dashboard')
+            router.push('/dashboard');
+            // let id_user = response.data.data[0].id_user;
+            // router.push({name: 'dahsboard', params: { id_user } })
           } else {
             alert("Username dan Password salah");
           }
